@@ -6,34 +6,74 @@ const products = [
 
     {
         id: 1,
-        name: "The Classic",
-        desc: "Brown butter, sea salt & dark chocolate.",
-        price: 28,
-        style: "classic"
+        name: "Soft Box",
+        desc: "3 classic cookies — perfect for a sweet moment.",
+        price: 20,
+        cookies: 3,
+        style: "soft",
+        category: "classic"
     },
 
     {
         id: 2,
-        name: "Double Choco",
-        desc: "Deep cocoa dough, milk & dark chocolate.",
-        price: 30,
-        style: "double"
+        name: "Maison Box",
+        desc: "6 classic cookies — our everyday favorite.",
+        price: 40,
+        cookies: 6,
+        style: "maison",
+        category: "classic"
     },
 
     {
         id: 3,
-        name: "Pistachio Dream",
-        desc: "Roasted pistachio, white chocolate & salt.",
-        price: 34,
-        style: "pistachio"
+        name: "Gathering Box",
+        desc: "12 classic cookies — made for sharing.",
+        price: 80,
+        cookies: 12,
+        style: "gathering",
+        category: "classic"
     },
 
     {
         id: 4,
-        name: "Lotus Melt",
-        desc: "Caramelized biscuit, vanilla & creamy center.",
-        price: 32,
-        style: "lotus"
+        name: "Terra Box",
+        desc: "18 cookies — The Grand Maison selection.",
+        price: 135,
+        cookies: 18,
+        style: "terra",
+        category: "grand"
+    },
+
+    {
+        id: 5,
+        name: "Lumen Box",
+        desc: "24 cookies — our most generous box.",
+        price: 175,
+        cookies: 24,
+        style: "lumen",
+        category: "grand"
+    }
+
+];
+
+
+
+const WHATSAPP_NUMBER = "212650527938";
+
+
+
+const shopCategories = [
+
+    {
+        key: "classic",
+        title: "Classic Box Selection",
+        subtitle: "Soft, golden, generously chipped"
+    },
+
+    {
+        key: "grand",
+        title: "The Grand Maison Box",
+        subtitle: "For gatherings & celebrations"
     }
 
 ];
@@ -77,16 +117,21 @@ const cartTotal =
    DISPLAY PRODUCTS
 ========================================= */
 
-function renderProducts() {
+function productCardHTML(product) {
 
-    productGrid.innerHTML =
-        products.map(product => `
+    return `
 
         <article class="product-card">
 
-            <div
-                class="product-photo ${product.style}"
-            ></div>
+            <div class="product-photo ${product.style}">
+
+                <span class="product-badge">
+
+                    ${product.cookies} cookies
+
+                </span>
+
+            </div>
 
 
             <div class="product-info">
@@ -126,7 +171,56 @@ function renderProducts() {
 
         </article>
 
-    `).join("");
+    `;
+
+}
+
+
+
+function renderProducts() {
+
+    productGrid.innerHTML =
+
+        shopCategories.map(category => `
+
+            <div class="shop-category">
+
+                <div class="category-header">
+
+                    <h3>
+                        ${category.title}
+                    </h3>
+
+                    <p>
+                        ${category.subtitle}
+                    </p>
+
+                </div>
+
+
+                <div class="category-grid">
+
+                    ${products
+                        .filter(
+                            product =>
+                                product.category === category.key
+                        )
+                        .map(productCardHTML)
+                        .join("")}
+
+                </div>
+
+            </div>
+
+        `).join("") + `
+
+            <p class="shop-note" dir="rtl">
+
+                تتوفر كميات إضافية وصناديق مخصصة حسب الطلب
+
+            </p>
+
+        `;
 
 }
 
@@ -404,31 +498,63 @@ overlay.addEventListener(
    CHECKOUT
 ========================================= */
 
+function checkoutViaWhatsApp() {
+
+    if (!cart.length) {
+
+        alert(
+            "Votre panier est vide 🍪"
+        );
+
+        return;
+
+    }
+
+
+    const lines =
+        cart.map(item =>
+
+            `${item.qty}× ${item.name} — ${item.price * item.qty} MAD`
+
+        );
+
+
+    const total =
+        cart.reduce(
+            (sum, item) =>
+                sum + item.price * item.qty,
+            0
+        );
+
+
+    const message =
+        encodeURIComponent(
+
+            `Bonjour LA MAISON SAURUS! 🍪\n\n` +
+            `Je souhaite commander:\n\n` +
+            lines.join("\n") +
+            `\n\nTotal: ${total} MAD\n\nMerci!`
+
+        );
+
+
+    window.open(
+
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
+
+        "_blank"
+
+    );
+
+}
+
+
+
 document
     .getElementById("checkoutBtn")
     .addEventListener(
         "click",
-        () => {
-
-            if (!cart.length) {
-
-                alert(
-                    "Your box is empty 🍪"
-                );
-
-                return;
-
-            }
-
-
-            alert(
-                "Demo checkout 🍪\n\n" +
-                "Connect this button " +
-                "to your payment or " +
-                "WhatsApp ordering system."
-            );
-
-        }
+        checkoutViaWhatsApp
     );
 
 
