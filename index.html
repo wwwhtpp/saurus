@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d98969">
+
+    <meta name="color-scheme" content="light">
 
     <meta
         name="description"
@@ -62,7 +64,46 @@
             aria-label="Open shopping cart"
         >
 
-            <span>Cart</span>
+            <svg
+                class="cart-icon"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="M6 6h15l-1.5 9h-12L6 6z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                />
+
+                <path
+                    d="M6 6L5 3H2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                />
+
+                <circle
+                    cx="10"
+                    cy="20"
+                    r="1.5"
+                    fill="currentColor"
+                />
+
+                <circle
+                    cx="17"
+                    cy="20"
+                    r="1.5"
+                    fill="currentColor"
+                />
+
+            </svg>
+
+            <span>Panier</span>
 
             <b id="cartCount">0</b>
 
