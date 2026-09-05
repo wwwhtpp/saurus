@@ -2281,3 +2281,82 @@ select {
     }
 
 }
+/* ===== MOBILE RESPONSIVE ===== */
+
+* {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+  
+    body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  
+    .container,
+    .section,
+    .hero,
+    .products,
+    .navbar {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 20px;
+    }
+  
+    .hero-text {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .hero-image {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    /* Products */
+    .products-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  
+    .product-card {
+      width: 100%;
+    }
+  
+    /* Navbar */
+    .navbar {
+      padding: 15px 20px;
+    }
+  
+    /* Titles */
+    h1 {
+      font-size: 42px;
+      line-height: 1;
+    }
+  
+    h2 {
+      font-size: 32px;
+    }
+  }
